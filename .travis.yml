@@ -1,0 +1,10 @@
+language: php
+
+php:
+  - 7
+
+install:
+  - composer install --no-interaction --prefer-source
+
+script:
+  - php ./vendor/bin/phpunit -c phpunit.sample.xml

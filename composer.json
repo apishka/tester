@@ -1,0 +1,17 @@
+{
+    "name": "apishka/tester",
+    "type": "library",
+    "require": {
+        "php": ">=7",
+        "apishka/easy-extend": "^1.2.10"
+    },
+    "require-dev": {
+        "apishka/cs": "^1.0.0",
+        "phpunit/phpunit": "^5.2.5"
+    },
+    "autoload": {
+        "psr-0" : {
+            "Apishka_Tester_" : "source/"
+        }
+    }
+}
