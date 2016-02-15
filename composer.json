@@ -13,5 +13,8 @@
         "psr-0" : {
             "Apishka_Tester_" : "source/"
         }
-    }
+    },
+    "bin": [
+        "bin/tester"
+    ]
 }
