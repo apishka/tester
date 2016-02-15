@@ -28,7 +28,7 @@ class Apishka_Tester_Test_Php_Version extends Apishka_Tester_TestAbstract
      *
      * @param string $version
      *
-     * @return array
+     * @return mixed
      */
 
     protected function execute($version)
