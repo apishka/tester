@@ -25,11 +25,28 @@ class Apishka_Tester_Result
     /**
      * Construct
      *
-     * @param mixed $result
+     * @param string $name
+     * @param mixed  $result
      */
 
-    public function __construct($result = false)
+    public function __construct($name, $result = true)
     {
         $this->_result = $result;
+    }
+
+    /**
+     * Set exception
+     *
+     * @param Throwable $e
+     *
+     * @return Apishka_Tester_Result this
+     */
+
+    public function setException(Throwable $e)
+    {
+        throw $e;
+        $this->_exception = $e;
+
+        return $this;
     }
 }

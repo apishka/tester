@@ -41,6 +41,8 @@ class Apishka_TesterCommand extends \Symfony\Component\Console\Command\Command
 
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output)
     {
+        $tester = Apishka_Tester_Tester::apishka();
+        $tester->execute();
     }
 }
 

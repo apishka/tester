@@ -34,10 +34,12 @@ class Apishka_Tester_Test_Php_Version extends Apishka_Tester_TestAbstract
     protected function execute($version)
     {
         return $this->runTest(
+            'Test version ' . $version,
             function () use ($version)
             {
-                if (!version_compare(phpversion(), $required_version, '>='))
-                    throw Apishka_Tester_Exception::apishka('Version ' . var_export($current_version, true) . ' is not supported. Necessary version ' . var_export($required_version, true) . '.');
+                $current_version = phpversion();
+                if (!version_compare($current_version, $version, '>='))
+                    throw Apishka_Tester_Exception::apishka('Version ' . var_export($current_version, true) . ' is not supported. Necessary version ' . var_export($version, true) . '.');
             }
         );
     }

@@ -11,12 +11,6 @@
 abstract class Apishka_Tester_TestAbstract
 {
     /**
-     * Traits
-     */
-
-    use Apishka\EasyExtend\Helper\ByClassNameTrait;
-
-    /**
      * Get supported names
      *
      * @abstract
@@ -29,25 +23,34 @@ abstract class Apishka_Tester_TestAbstract
     /**
      * Run execute
      *
-     * @param ... $params
+     * @param array $params
      *
      * @return Apishka_Tester_Result
      */
 
-    public function runExecute(...$params)
+    public function runExecute($params)
     {
-        return Apishka_Tester_Result::apishka($this->execute(...$params));
+        $result = $this->execute(...array_slice($params, 1));
+
+        if ($result instanceof Apishka_Tester_Result)
+            return $result;
+
+        return Apishka_Tester_Result::apishka(
+            $this->getSupportedNames()[0],
+            $result
+        );
     }
 
     /**
      * Run test
      *
+     * @param string  $name
      * @param Closure $callback
      *
      * @return Apishka_Tester_Result
      */
 
-    protected function runTest($callback)
+    protected function runTest($name, $callback)
     {
         try
         {
@@ -55,9 +58,9 @@ abstract class Apishka_Tester_TestAbstract
         }
         catch (Throwable $e)
         {
-            return Apishka_Tester_Result::apishka(false)->setException($e);
+            return Apishka_Tester_Result::apishka($name, false)->setException($e);
         }
 
-        return Apishka_Tester_Result::apishka();
+        return Apishka_Tester_Result::apishka($name);
     }
 }
