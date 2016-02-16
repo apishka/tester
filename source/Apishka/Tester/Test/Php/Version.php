@@ -34,7 +34,7 @@ class Apishka_Tester_Test_Php_Version extends Apishka_Tester_TestAbstract
     protected function execute($version)
     {
         return $this->runTest(
-            'Test version ' . $version,
+            $this->getName() . ' ' . $version,
             function () use ($version)
             {
                 $current_version = phpversion();

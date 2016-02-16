@@ -36,7 +36,7 @@ abstract class Apishka_Tester_TestAbstract
             return $result;
 
         return Apishka_Tester_Result::apishka(
-            $this->getSupportedNames()[0],
+            $this->getName(),
             $result
         );
     }
@@ -62,5 +62,16 @@ abstract class Apishka_Tester_TestAbstract
         }
 
         return Apishka_Tester_Result::apishka($name);
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+
+    protected function getName()
+    {
+        return $this->getSupportedNames()[0];
     }
 }

@@ -34,7 +34,7 @@ class Apishka_Tester_Test_Php_Extension extends Apishka_Tester_TestAbstract
     protected function execute($extension)
     {
         return $this->runTest(
-            'Test extension ' . $extension,
+            $this->getName() . ' ' . $extension,
             function () use ($extension)
             {
                 if (!extension_loaded($extension))
