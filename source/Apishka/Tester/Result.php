@@ -98,7 +98,7 @@ class Apishka_Tester_Result
      * @return array
      */
 
-    public function getData()
+    public function getDataInternal()
     {
         $result = array();
 
@@ -113,7 +113,7 @@ class Apishka_Tester_Result
                 $result['error'] = $this->_exception->getMessage();
 
             foreach ($this->_result as $key => $test)
-                $result['subtests'][$key] = $test->getData();
+                $result['subtests'][$key] = $test->getDataInternal();
         }
         else
         {
@@ -124,6 +124,43 @@ class Apishka_Tester_Result
 
             if ($this->_exception)
                 $result['error'] = $this->_exception->getMessage();
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get data
+     *
+     * @return array
+     */
+
+    public function getData()
+    {
+        return array(
+            $this->getDataInternal()
+        );
+    }
+
+    /**
+     * Clean data
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+
+    public function cleanData($data)
+    {
+        $result = array();
+        foreach ($data as $key => $test)
+        {
+            $result[$key] = $test;
+            if ($test['success'])
+                unset($result[$key]['subtests']);
+
+            if (array_key_exists('subtests', $result[$key]))
+                $result[$key]['subtests'] = $this->cleanData($result[$key]['subtests']);
         }
 
         return $result;

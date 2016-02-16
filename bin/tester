@@ -41,10 +41,12 @@ class Apishka_TesterCommand extends \Symfony\Component\Console\Command\Command
         $tester = Apishka_Tester_Tester::apishka();
         $result = $tester->execute();
 
-        foreach (array($result->getData()) as $test)
-        {
+        $data = $result->getData();
+        if ($output->getVerbosity() == \Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL)
+            $data = $result->cleanData($data);
+
+        foreach ($data as $test)
             $this->drawTestData($output, $test);
-        }
     }
 
     /**
