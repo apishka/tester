@@ -27,7 +27,9 @@ class Apishka_Tester_Tester
         foreach ($this->getTestsConfig() as $package => $config)
         {
             $subresult = array();
-            foreach ($config['tests'] as $test)
+
+            $tests = $config['tests'];
+            foreach ($tests as $test)
                 $subresult[] = $router->getItem($test[0])->runExecute($test);
 
             $result[] = Apishka_Tester_Result::apishka('Package ' . $package, $subresult);
