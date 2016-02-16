@@ -21,6 +21,18 @@ abstract class Apishka_Tester_TestAbstract
     abstract public function getSupportedNames();
 
     /**
+     * Execute
+     *
+     * @param ... $params
+     *
+     * @abstract
+     *
+     * @return mixed
+     */
+
+    abstract protected function execute(... $params);
+
+    /**
      * Run execute
      *
      * @param array $params

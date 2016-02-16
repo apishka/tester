@@ -26,13 +26,15 @@ class Apishka_Tester_Test_Php_Version extends Apishka_Tester_TestAbstract
     /**
      * Execute
      *
-     * @param string $version
+     * @param ... $params
      *
      * @return mixed
      */
 
-    protected function execute($version)
+    protected function execute(... $params)
     {
+        $version = $params[0];
+
         return $this->runTest(
             $this->getName() . ' ' . $version,
             function () use ($version)

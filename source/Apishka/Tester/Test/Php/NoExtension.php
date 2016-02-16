@@ -26,13 +26,15 @@ class Apishka_Tester_Test_Php_NoExtension extends Apishka_Tester_TestAbstract
     /**
      * Execute
      *
-     * @param string $extension
+     * @param ... $params
      *
      * @return mixed
      */
 
-    protected function execute($extension)
+    protected function execute(... $params)
     {
+        $extension = $params[0];
+
         return $this->runTest(
             $this->getName() . ' ' . $extension,
             function () use ($extension)
