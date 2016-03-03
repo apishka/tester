@@ -11,6 +11,14 @@
 abstract class Apishka_Tester_TestAbstract
 {
     /**
+     * Debug callback
+     *
+     * @var mixed
+     */
+
+    private $_debug_callback = null;
+
+    /**
      * Get supported names
      *
      * @abstract
@@ -36,12 +44,15 @@ abstract class Apishka_Tester_TestAbstract
      * Run execute
      *
      * @param array $params
+     * @param mixed $debug_callback
      *
      * @return Apishka_Tester_Result
      */
 
-    public function runExecute($params)
+    public function runExecute($params, $debug_callback = null)
     {
+        $this->_debug_callback = $debug_callback;
+
         $result = $this->execute(...array_slice($params, 1));
 
         if ($result instanceof Apishka_Tester_Result)
@@ -51,6 +62,22 @@ abstract class Apishka_Tester_TestAbstract
             $this->getName(),
             $result
         );
+    }
+
+    /**
+     * Debug
+     *
+     * @param string $text
+     *
+     * @return Apishka_Tester_TestAbstract this
+     */
+
+    protected function debug($text)
+    {
+        if ($this->_debug_callback !== null)
+            call_user_func($this->_debug_callback, $text);
+
+        return $this;
     }
 
     /**

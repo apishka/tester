@@ -33,12 +33,16 @@ class Apishka_Tester_Test_Php_Extension extends Apishka_Tester_TestAbstract
 
     protected function execute(... $params)
     {
+        $this->debug('> Running tests for PHP Extension');
+
         $extension = $params[0];
 
         return $this->runTest(
             $this->getName() . ' ' . $extension,
             function () use ($extension)
             {
+                $this->debug('=> Check extension ' . var_export($extension, true));
+
                 if (!extension_loaded($extension))
                     throw Apishka_Tester_Exception::apishka('Extention ' . var_export($extension, true) . ' not loaded.');
             }

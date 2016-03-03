@@ -20,7 +20,7 @@ class Apishka_Tester_Tester
      * @return mixed
      */
 
-    public function execute()
+    public function execute($debug_callback = null)
     {
         $router = Apishka_Tester_Router::apishka();
         $result = array();
@@ -30,7 +30,12 @@ class Apishka_Tester_Tester
 
             $tests = $config['tests'];
             foreach ($tests as $test)
-                $subresult[] = $router->getItem($test[0])->runExecute($test);
+            {
+                if ($debug_callback !== null)
+                    $debug_callback('Running test ' . var_export($test[0], true));
+
+                $subresult[] = $router->getItem($test[0])->runExecute($test, $debug_callback);
+            }
 
             $result[] = Apishka_Tester_Result::apishka('Package ' . $package, $subresult);
         }
