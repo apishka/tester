@@ -43,8 +43,8 @@ class Apishka_Tester_Test_Php_Version extends Apishka_Tester_TestAbstract
             {
                 $current_version = phpversion();
 
-                $this->debug('=> Current version ' . var_export($current_version, true));
-                $this->debug('=> Required verssion ' . var_export($version, true));
+                $this->debug(' > Current version ' . var_export($current_version, true));
+                $this->debug(' > Required version ' . var_export($version, true));
 
                 if (!version_compare($current_version, $version, '>='))
                     throw Apishka_Tester_Exception::apishka('Version ' . var_export($current_version, true) . ' is not supported. Necessary version ' . var_export($version, true) . '.');
