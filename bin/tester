@@ -1,89 +1,11 @@
 #!/usr/bin/env php
-<?php
+<?php declare(strict_types = 1);
 
 require_once('vendor/autoload.php');
 
-use \Symfony\Component\Console;
-
-/**
- * Apishka easy extend command
- *
- * @uses \Symfony\Component\Console\Command\Command
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
- */
-
-class Apishka_TesterCommand extends \Symfony\Component\Console\Command\Command
-{
-    /**
-     * Configure
-     *
-     * @access protected
-     */
-
-    protected function configure()
-    {
-        $this
-            ->setName('apishka:tester')
-            ->setDescription('Apishka tester')
-        ;
-    }
-
-    /**
-     * Execute
-     *
-     * @param \Symfony\Component\Console\Input\InputInterface  $input
-     * @param \Symfony\Component\Console\Input\OutputInterface $output
-     */
-
-    protected function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output)
-    {
-        $tester = Apishka_Tester_Tester::apishka();
-        $result = $tester->execute();
-
-        $data = $result->getData();
-        if ($output->getVerbosity() == \Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL)
-            $data = $result->cleanData($data);
-
-        foreach ($data as $test)
-            $this->drawTestData($output, $test);
-    }
-
-    /**
-     * Draw test data
-     *
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param array                                             $test
-     * @param int                                               $level
-     */
-
-    protected function drawTestData($output, $test, $level = 0)
-    {
-        $output->writeln(
-            str_pad('', $level * 2) .
-            str_pad($test['name'], 74 - $level *2) .
-            ($test['success'] ? '<info>[DONE]</info>' : '<error>[FAIL]</error>')
-        );
-
-        if (array_key_exists('error', $test))
-        {
-            $output->writeln(
-                str_pad('', ($level + 1) * 2) .
-                '<fg=red>' . $test['error'] . '</>'
-            );
-        }
-
-        if (array_key_exists('subtests', $test))
-        {
-            foreach ($test['subtests'] as $subtest)
-            {
-                $this->drawTestData($output, $subtest, $level + 1);
-            }
-        }
-    }
-}
+use Apishka\Tester\Command;
 
 $application = new \Symfony\Component\Console\Application();
-$application->add(new Apishka_TesterCommand);
+$application->add(new Command\Tester);
 $application->setDefaultCommand('apishka:tester');
 $application->run();

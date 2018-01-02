@@ -4,6 +4,7 @@ namespace Apishka\Tester;
 
 /**
  * Apishka tester tester
+ * @method static Tester apishka()
  */
 class Tester
 {
