@@ -1,22 +1,20 @@
-<?php
+<?php declare(strict_types = 1);
+
+namespace Apishka\Tester\Test\Php;
+
+use Apishka\Tester\Result;
+use Apishka\Tester\TestAbstract;
+use Apishka\Tester\Exception;
 
 /**
  * Apishka tester test PHP extension
- *
- * @uses Apishka_Tester_TestAbstract
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
-
-class Apishka_Tester_Test_Php_Extension extends Apishka_Tester_TestAbstract
+class Extension extends TestAbstract
 {
     /**
-     * Get supported names
-     *
-     * @return array
+     * {@inheritdoc}
      */
-
-    public function getSupportedNames()
+    public function getSupportedNames(): array
     {
         return array(
             'PHP/Extension',
@@ -24,14 +22,9 @@ class Apishka_Tester_Test_Php_Extension extends Apishka_Tester_TestAbstract
     }
 
     /**
-     * Execute
-     *
-     * @param ... $params
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-
-    protected function execute(... $params)
+    protected function execute(... $params): Result
     {
         $this->debug('> Running tests for PHP Extension');
 
@@ -44,7 +37,7 @@ class Apishka_Tester_Test_Php_Extension extends Apishka_Tester_TestAbstract
                 $this->debug(' > Check extension ' . var_export($extension, true));
 
                 if (!extension_loaded($extension))
-                    throw Apishka_Tester_Exception::apishka('Extention ' . var_export($extension, true) . ' not loaded.');
+                    throw Exception::apishka('Extension ' . var_export($extension, true) . ' not loaded.');
             }
         );
     }

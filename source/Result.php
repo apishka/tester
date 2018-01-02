@@ -1,51 +1,42 @@
-<?php
+<?php declare(strict_types = 1);
+
+namespace Apishka\Tester;
 
 /**
  * Apishka tester result
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
+ * @method static Result apishka(string $name, $result = true)
  */
-
-class Apishka_Tester_Result
+class Result
 {
     /**
      * Traits
      */
-
-    use Apishka\EasyExtend\Helper\ByClassNameTrait;
+    use \Apishka\EasyExtend\Helper\ByClassNameTrait;
 
     /**
      * Exception
-     *
-     * @var Throwable
+     * @var \Throwable
      */
-
     private $_exception = null;
 
     /**
      * Name
-     *
      * @var string
      */
-
     private $_name = null;
 
     /**
      * Result
-     *
-     * @var bool
+     * @var mixed
      */
-
     private $_result = null;
 
     /**
      * Construct
-     *
      * @param string $name
      * @param mixed  $result
      */
-
-    public function __construct($name, $result = true)
+    public function __construct(string $name, $result = true)
     {
         $this->_name   = $name;
         $this->_result = $result;
@@ -54,12 +45,10 @@ class Apishka_Tester_Result
     /**
      * Set exception
      *
-     * @param Throwable $e
-     *
-     * @return Apishka_Tester_Result this
+     * @param \Throwable $e
+     * @return Result this
      */
-
-    public function setException(Throwable $e)
+    public function setException(\Throwable $e)
     {
         $this->_exception = $e;
 
@@ -68,10 +57,8 @@ class Apishka_Tester_Result
 
     /**
      * Is success
-     *
-     * @return void
+     * @return mixed
      */
-
     public function isSuccess()
     {
         if (is_bool($this->_result))
@@ -81,8 +68,8 @@ class Apishka_Tester_Result
         {
             foreach ($this->_result as $key => $result)
             {
-                if (!($result instanceof Apishka_Tester_Result))
-                    throw new Exception();
+                if (!($result instanceof Result))
+                    throw new \Exception();
 
                 if (!$result->isSuccess())
                     return false;
@@ -94,14 +81,10 @@ class Apishka_Tester_Result
 
     /**
      * Get as array
-     *
      * @return array
      */
-
-    public function getDataInternal()
+    public function getDataInternal(): array
     {
-        $result = array();
-
         if (is_array($this->_result))
         {
             $result = array(
@@ -131,11 +114,9 @@ class Apishka_Tester_Result
 
     /**
      * Get data
-     *
      * @return array
      */
-
-    public function getData()
+    public function getData(): array
     {
         return array(
             $this->getDataInternal()
@@ -144,13 +125,10 @@ class Apishka_Tester_Result
 
     /**
      * Clean data
-     *
      * @param array $data
-     *
      * @return array
      */
-
-    public function cleanData($data)
+    public function cleanData($data): array
     {
         $result = array();
         foreach ($data as $key => $test)

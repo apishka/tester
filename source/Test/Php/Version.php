@@ -1,22 +1,20 @@
-<?php
+<?php declare(strict_types = 1);
+
+namespace Apishka\Tester\Test\Php;
+
+use Apishka\Tester\Result;
+use Apishka\Tester\TestAbstract;
+use Apishka\Tester\Exception;
 
 /**
  * Apishka tester test PHP version
- *
- * @uses Apishka_Tester_TestAbstract
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
-
-class Apishka_Tester_Test_Php_Version extends Apishka_Tester_TestAbstract
+class Version extends TestAbstract
 {
     /**
-     * Get supported names
-     *
-     * @return array
+     * {@inheritdoc}
      */
-
-    public function getSupportedNames()
+    public function getSupportedNames(): array
     {
         return array(
             'PHP/Version',
@@ -24,21 +22,16 @@ class Apishka_Tester_Test_Php_Version extends Apishka_Tester_TestAbstract
     }
 
     /**
-     * Execute
-     *
-     * @param ... $params
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-
-    protected function execute(... $params)
+    protected function execute(... $params): Result
     {
         $this->debug('> Running tests for PHP version');
 
         $version = $params[0];
 
         return $this->runTest(
-            $this->getName() . ' ' . $version,
+            $this->getName() . ' >= ' . $version,
             function () use ($version)
             {
                 $current_version = phpversion();
@@ -47,7 +40,7 @@ class Apishka_Tester_Test_Php_Version extends Apishka_Tester_TestAbstract
                 $this->debug(' > Required version ' . var_export($version, true));
 
                 if (!version_compare($current_version, $version, '>='))
-                    throw Apishka_Tester_Exception::apishka('Version ' . var_export($current_version, true) . ' is not supported. Necessary version ' . var_export($version, true) . '.');
+                    throw Exception::apishka('Version ' . var_export($current_version, true) . ' is not supported. Necessary version ' . var_export($version, true) . '.');
             }
         );
     }

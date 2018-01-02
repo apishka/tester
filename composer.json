@@ -1,7 +1,7 @@
 {
     "name": "apishka/tester",
     "license": "proprietary",
-    "description": "Libraty for testing component requires",
+    "description": "Library for testing component requires",
     "type": "library",
     "require": {
         "php": ">=7",
@@ -12,7 +12,7 @@
     },
     "autoload": {
         "psr-4" : {
-            "Apishka\\" : "source/"
+            "Apishka\\Tester\\" : "source/"
         }
     },
     "bin": [

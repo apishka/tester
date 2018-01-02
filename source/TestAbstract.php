@@ -1,78 +1,56 @@
-<?php
+<?php declare(strict_types = 1);
+
+namespace Apishka\Tester;
 
 /**
  * Apishka tester test abstract
- *
- * @abstract
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
-
-abstract class Apishka_Tester_TestAbstract
+abstract class TestAbstract
 {
     /**
      * Debug callback
-     *
-     * @var mixed
+     * @var callable
      */
-
     private $_debug_callback = null;
 
     /**
      * Get supported names
-     *
-     * @abstract
-     *
      * @return array
      */
-
-    abstract public function getSupportedNames();
+    abstract public function getSupportedNames(): array;
 
     /**
-     * Execute
-     *
-     * @param ... $params
-     *
-     * @abstract
-     *
+     * @param array ...$params
      * @return mixed
      */
-
     abstract protected function execute(... $params);
 
     /**
      * Run execute
-     *
      * @param array $params
      * @param mixed $debug_callback
-     *
-     * @return Apishka_Tester_Result
+     * @return Result
      */
-
-    public function runExecute($params, $debug_callback = null)
+    public function runExecute(array $params, callable $debug_callback = null)
     {
         $this->_debug_callback = $debug_callback;
 
         $result = $this->execute(...array_slice($params, 1));
 
-        if ($result instanceof Apishka_Tester_Result)
+        if ($result instanceof Result)
             return $result;
 
-        return Apishka_Tester_Result::apishka(
+        return Result::apishka(
             $this->getName(),
             $result
         );
     }
 
     /**
-     * Debug
-     *
      * @param string $text
-     *
-     * @return Apishka_Tester_TestAbstract this
+     * @return $this
      */
-
-    protected function debug($text)
+    protected function debug(string $text): self
     {
         if ($this->_debug_callback !== null)
             call_user_func($this->_debug_callback, $text);
@@ -82,34 +60,29 @@ abstract class Apishka_Tester_TestAbstract
 
     /**
      * Run test
-     *
      * @param string  $name
-     * @param Closure $callback
-     *
-     * @return Apishka_Tester_Result
+     * @param callable $callback
+     * @return Result
      */
-
-    protected function runTest($name, $callback)
+    protected function runTest($name, callable $callback): Result
     {
         try
         {
             call_user_func($callback);
         }
-        catch (Throwable $e)
+        catch (\Throwable $e)
         {
-            return Apishka_Tester_Result::apishka($name, false)->setException($e);
+            return Result::apishka($name, false)->setException($e);
         }
 
-        return Apishka_Tester_Result::apishka($name);
+        return Result::apishka($name);
     }
 
     /**
      * Get name
-     *
      * @return string
      */
-
-    protected function getName()
+    protected function getName(): string
     {
         return $this->getSupportedNames()[0];
     }

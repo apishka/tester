@@ -1,28 +1,24 @@
-<?php
+<?php declare(strict_types = 1);
+
+namespace Apishka\Tester;
 
 /**
  * Apishka tester tester
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
-
-class Apishka_Tester_Tester
+class Tester
 {
     /**
      * Traits
      */
-
-    use Apishka\EasyExtend\Helper\ByClassNameTrait;
+    use \Apishka\EasyExtend\Helper\ByClassNameTrait;
 
     /**
-     * Execute
-     *
-     * @return mixed
+     * @param callable $debug_callback
+     * @return Result
      */
-
-    public function execute($debug_callback = null)
+    public function execute(callable $debug_callback = null): Result
     {
-        $router = Apishka_Tester_Router::apishka();
+        $router = Router::apishka();
         $result = array();
         foreach ($this->getTestsConfig() as $package => $config)
         {
@@ -37,21 +33,19 @@ class Apishka_Tester_Tester
                 $subresult[] = $router->getItem($test[0])->runExecute($test, $debug_callback);
             }
 
-            $result[] = Apishka_Tester_Result::apishka('Package ' . $package, $subresult);
+            $result[] = Result::apishka('Package ' . $package, $subresult);
         }
 
-        return Apishka_Tester_Result::apishka('Environment', $result);
+        return Result::apishka('Environment', $result);
     }
 
     /**
      * Get tests config
-     *
      * @return array
      */
-
-    protected function getTestsConfig()
+    protected function getTestsConfig(): array
     {
-        $builder = new Apishka\EasyExtend\Builder();
+        $builder = new \Apishka\EasyExtend\Builder();
         $configs = $builder->getConfigFilesFromCache();
 
         $result = array();
@@ -68,14 +62,11 @@ class Apishka_Tester_Tester
 
     /**
      * Read config
-     *
      * @param string $file
-     *
      * @return array
      */
-
-    protected function readConfig($file)
+    protected function readConfig(string $file): array
     {
-        return include($file);
+        return include $file;
     }
 }

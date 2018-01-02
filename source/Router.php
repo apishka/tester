@@ -1,39 +1,31 @@
-<?php
+<?php declare(strict_types = 1);
+
+namespace Apishka\Tester;
 
 /**
  * Apishka tester router
- *
- * @uses \Apishka\EasyExtend\Router\ByKeyAbstract
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
-
-class Apishka_Tester_Router extends \Apishka\EasyExtend\Router\ByKeyAbstract
+class Router extends \Apishka\EasyExtend\Router\ByKeyAbstract
 {
     /**
      * Checks item for correct information
-     *
      * @param \ReflectionClass $reflector
-     *
      * @return bool
      */
-
-    protected function isCorrectItem(\ReflectionClass $reflector)
+    protected function isCorrectItem(\ReflectionClass $reflector): bool
     {
-        return $reflector->isSubclassOf('Apishka_Tester_TestAbstract');
+        return $reflector->isSubclassOf(TestAbstract::class);
     }
 
     /**
      * Get class variants
-     *
      * @param \ReflectionClass $reflector
-     * @param object           $item
-     *
+     * @param object $item
      * @return array
      */
-
     protected function getClassVariants(\ReflectionClass $reflector, $item)
     {
+        /** @var $item TestAbstract */
         return $item->getSupportedNames();
     }
 }
