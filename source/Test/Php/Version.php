@@ -2,9 +2,9 @@
 
 namespace Apishka\Tester\Test\Php;
 
+use Apishka\Tester\Exception;
 use Apishka\Tester\Result;
 use Apishka\Tester\TestAbstract;
-use Apishka\Tester\Exception;
 
 /**
  * Apishka tester test PHP version

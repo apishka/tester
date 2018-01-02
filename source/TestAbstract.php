@@ -9,26 +9,31 @@ abstract class TestAbstract
 {
     /**
      * Debug callback
+     *
      * @var callable
      */
     private $_debug_callback = null;
 
     /**
      * Get supported names
+     *
      * @return array
      */
     abstract public function getSupportedNames(): array;
 
     /**
      * @param array ...$params
+     *
      * @return mixed
      */
     abstract protected function execute(... $params);
 
     /**
      * Run execute
+     *
      * @param array $params
      * @param mixed $debug_callback
+     *
      * @return Result
      */
     public function runExecute(array $params, callable $debug_callback = null)
@@ -48,6 +53,7 @@ abstract class TestAbstract
 
     /**
      * @param string $text
+     *
      * @return $this
      */
     protected function debug(string $text): self
@@ -60,8 +66,10 @@ abstract class TestAbstract
 
     /**
      * Run test
-     * @param string  $name
+     *
+     * @param string   $name
      * @param callable $callback
+     *
      * @return Result
      */
     protected function runTest($name, callable $callback): Result
@@ -80,6 +88,7 @@ abstract class TestAbstract
 
     /**
      * Get name
+     *
      * @return string
      */
     protected function getName(): string

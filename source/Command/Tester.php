@@ -42,9 +42,10 @@ class Tester extends \Symfony\Component\Console\Command\Command
 
     /**
      * Draw test data
+     *
      * @param OutputInterface $output
-     * @param array $test
-     * @param int $level
+     * @param array           $test
+     * @param int             $level
      */
     protected function drawTestData(OutputInterface $output, array $test, int $level = 0): void
     {

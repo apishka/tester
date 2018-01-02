@@ -9,7 +9,9 @@ class Router extends \Apishka\EasyExtend\Router\ByKeyAbstract
 {
     /**
      * Checks item for correct information
+     *
      * @param \ReflectionClass $reflector
+     *
      * @return bool
      */
     protected function isCorrectItem(\ReflectionClass $reflector): bool
@@ -19,8 +21,10 @@ class Router extends \Apishka\EasyExtend\Router\ByKeyAbstract
 
     /**
      * Get class variants
+     *
      * @param \ReflectionClass $reflector
-     * @param object $item
+     * @param object           $item
+     *
      * @return array
      */
     protected function getClassVariants(\ReflectionClass $reflector, $item)

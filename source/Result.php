@@ -4,6 +4,7 @@ namespace Apishka\Tester;
 
 /**
  * Apishka tester result
+ *
  * @method static Result apishka(string $name, $result = true)
  */
 class Result
@@ -15,24 +16,28 @@ class Result
 
     /**
      * Exception
+     *
      * @var \Throwable
      */
     private $_exception = null;
 
     /**
      * Name
+     *
      * @var string
      */
     private $_name = null;
 
     /**
      * Result
+     *
      * @var mixed
      */
     private $_result = null;
 
     /**
      * Construct
+     *
      * @param string $name
      * @param mixed  $result
      */
@@ -46,6 +51,7 @@ class Result
      * Set exception
      *
      * @param \Throwable $e
+     *
      * @return Result this
      */
     public function setException(\Throwable $e)
@@ -57,6 +63,7 @@ class Result
 
     /**
      * Is success
+     *
      * @return mixed
      */
     public function isSuccess()
@@ -68,7 +75,7 @@ class Result
         {
             foreach ($this->_result as $key => $result)
             {
-                if (!($result instanceof Result))
+                if (!($result instanceof self))
                     throw new \Exception();
 
                 if (!$result->isSuccess())
@@ -81,6 +88,7 @@ class Result
 
     /**
      * Get as array
+     *
      * @return array
      */
     public function getDataInternal(): array
@@ -114,18 +122,21 @@ class Result
 
     /**
      * Get data
+     *
      * @return array
      */
     public function getData(): array
     {
         return array(
-            $this->getDataInternal()
+            $this->getDataInternal(),
         );
     }
 
     /**
      * Clean data
+     *
      * @param array $data
+     *
      * @return array
      */
     public function cleanData($data): array

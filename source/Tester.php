@@ -4,6 +4,7 @@ namespace Apishka\Tester;
 
 /**
  * Apishka tester tester
+ *
  * @method static Tester apishka()
  */
 class Tester
@@ -15,6 +16,7 @@ class Tester
 
     /**
      * @param callable $debug_callback
+     *
      * @return Result
      */
     public function execute(callable $debug_callback = null): Result
@@ -42,6 +44,7 @@ class Tester
 
     /**
      * Get tests config
+     *
      * @return array
      */
     protected function getTestsConfig(): array
@@ -63,7 +66,9 @@ class Tester
 
     /**
      * Read config
+     *
      * @param string $file
+     *
      * @return array
      */
     protected function readConfig(string $file): array
