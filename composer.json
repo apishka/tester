@@ -11,8 +11,8 @@
         "apishka/cs": "^1.0.0"
     },
     "autoload": {
-        "psr-0" : {
-            "Apishka_Tester_" : "source/"
+        "psr-4" : {
+            "Apishka\\" : "source/"
         }
     },
     "bin": [
