@@ -2,10 +2,12 @@
 
 namespace Apishka\Tester;
 
+use Apishka\EasyExtend\Router\ByKeyAbstract;
+
 /**
  * Apishka tester router
  */
-class Router extends \Apishka\EasyExtend\Router\ByKeyAbstract
+class Router extends ByKeyAbstract
 {
     /**
      * Checks item for correct information
@@ -27,7 +29,7 @@ class Router extends \Apishka\EasyExtend\Router\ByKeyAbstract
      *
      * @return array
      */
-    protected function getClassVariants(\ReflectionClass $reflector, $item)
+    protected function getClassVariants(\ReflectionClass $reflector, $item): array
     {
         /** @var $item TestAbstract */
         return $item->getSupportedNames();
